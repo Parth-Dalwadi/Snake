@@ -1,5 +1,8 @@
 package entity;
 
-public class Snake {
+import main.GamePanel;
+import main.KeyHandler;
+
+public class Snake extends Entity{
 
 }

@@ -1,5 +1,5 @@
 package entity;
 
-public class Apple {
+public class Apple extends Entity{
 
 }

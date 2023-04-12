@@ -1,5 +1,5 @@
 package entity;
 
-public class Entity {
-
+public class Entity{
+	int x, y;
 }
