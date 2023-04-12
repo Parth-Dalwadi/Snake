@@ -1,5 +1,6 @@
 package entity;
 
 public class Entity{
-	int x, y;
+	public int x;
+	public int y;
 }

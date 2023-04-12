@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.util.Random;
+import entity.Snake;
+import entity.Apple;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSize = 16;
@@ -20,21 +22,13 @@ public class GamePanel extends JPanel implements Runnable{
 	final int screenWidth = tileSize * maxScreenCol;
 	final int screenHeight = tileSize * maxScreenRow;
 	int FPS = 60;
-	Random random;
 
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
-
-	int snakeX = 100;
-	int snakeY = 100;
-	int snakeSpeed = 4;
-	int snakeBody = 6;
-
-	int appleX;
-	int appleY;
+	Snake snake = new Snake(this, keyH);
+	Apple apple = new Apple(this);
 
 	public GamePanel(){
-		random = new Random();
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
@@ -44,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void startGameThread(){
 		gameThread = new Thread(this);
-		applePosition();
+		apple.setApplePosition(screenWidth, screenHeight, tileSize);
 		gameThread.start();
 	}
 
@@ -64,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
 			lastTime = currentTime;
 
 			if (delta >= 1) {
-				update();
+				snake.update();
 				repaint();
 				delta--;	
 				drawCount++;
@@ -78,35 +72,18 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 
-	public void update(){
-		if (keyH.direction == 'U') {
-			snakeY -= snakeSpeed;	
-		} else if (keyH.direction == 'S') {
-			snakeY += snakeSpeed;	
-		} else if (keyH.direction == 'L') {
-			snakeX -= snakeSpeed;	
-		} else if (keyH.direction == 'R') {
-			snakeX += snakeSpeed;	
-		}
-	}
-
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setColor(Color.green);
-		g2.fillRect(snakeX, snakeY, tileSize/2, tileSize/2);
+		g2.fillRect(snake.x, snake.y, tileSize/2, tileSize/2);
 		draw(g2);
 		g2.dispose();
 	}
 
 	public void draw(Graphics2D g){
 		g.setColor(Color.red);
-		g.fillOval(appleX, appleY, tileSize/2, tileSize/2);
+		g.fillOval(apple.x, apple.y, tileSize/2, tileSize/2);
 		g.dispose();
-	}
-
-	public void applePosition() {
-		appleX = random.nextInt((int)(screenWidth/tileSize)) * tileSize;
-		appleY = random.nextInt((int)(screenHeight/tileSize)) * tileSize;
 	}
 }
