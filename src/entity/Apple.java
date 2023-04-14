@@ -1,6 +1,9 @@
 package entity;
 
 import main.GamePanel;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Random;
 
 public class Apple extends Entity{
@@ -12,9 +15,14 @@ public class Apple extends Entity{
 		random = new Random();
 	}
 	
-	public void setApplePosition(int screenWidth, int screenHeight, int tileSize) {
-		x = random.nextInt((int)(screenWidth/tileSize)) * tileSize;
-		y = random.nextInt((int)(screenHeight/tileSize)) * tileSize;
+	public void setApplePosition() {
+		x = random.nextInt((int)(gp.screenWidth/gp.tileSize)) * gp.tileSize;
+		y = random.nextInt((int)(gp.screenHeight/gp.tileSize)) * gp.tileSize;
+	}
+	
+	public void draw(Graphics2D g2) {
+		g2.setColor(Color.red);
+		g2.fillOval(x, y, gp.tileSize/2, gp.tileSize/2);
 	}
 	
 }

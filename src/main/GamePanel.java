@@ -13,20 +13,27 @@ import java.util.Random;
 import entity.Snake;
 import entity.Apple;
 
+@SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSize = 16;
 	final int scale = 3;
-	final int tileSize = originalTileSize * scale;
+	public final int tileSize = originalTileSize * scale;
 	final int maxScreenCol = 16;
 	final int maxScreenRow = 12;
-	final int screenWidth = tileSize * maxScreenCol;
-	final int screenHeight = tileSize * maxScreenRow;
+	public final int screenWidth = tileSize * maxScreenCol;
+	public final int screenHeight = tileSize * maxScreenRow;
 	int FPS = 60;
+	int score = 0;
+	public int gameState;
+	public final int titleState = 0;
+	public final int playState = 1;
+	public final int gameOverState = 2;
 
-	KeyHandler keyH = new KeyHandler();
+	KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
 	Snake snake = new Snake(this, keyH);
 	Apple apple = new Apple(this);
+	UI ui = new UI(this);
 
 	public GamePanel(){
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -38,8 +45,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void startGameThread(){
 		gameThread = new Thread(this);
-		apple.setApplePosition(screenWidth, screenHeight, tileSize);
+		apple.setApplePosition();
 		gameThread.start();
+		gameState = titleState;
 	}
 
 	@Override
@@ -58,7 +66,10 @@ public class GamePanel extends JPanel implements Runnable{
 			lastTime = currentTime;
 
 			if (delta >= 1) {
-				snake.update();
+				if (gameState == playState) {
+					snake.update();
+					checkApple();
+				}
 				repaint();
 				delta--;	
 				drawCount++;
@@ -74,16 +85,23 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setColor(Color.green);
-		g2.fillRect(snake.x, snake.y, tileSize/2, tileSize/2);
-		draw(g2);
+		Graphics2D g2 = (Graphics2D)g;;
+		if (gameState == titleState) {
+			ui.draw(g2);
+		}
+		
+		if (gameState == playState) {
+			snake.draw(g2);
+			apple.draw(g2);
+		}
 		g2.dispose();
 	}
-
-	public void draw(Graphics2D g){
-		g.setColor(Color.red);
-		g.fillOval(apple.x, apple.y, tileSize/2, tileSize/2);
-		g.dispose();
+	
+	public void checkApple() {
+		if ((snake.x == apple.x) && (snake.y == apple.y)){
+			snake.body++;
+			score++;
+			apple.setApplePosition();
+		}
 	}
 }

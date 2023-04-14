@@ -1,5 +1,7 @@
 package entity;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -7,7 +9,7 @@ public class Snake extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
 	public int speed = 4;
-	public int snakeBody = 6;
+	public int body = 4;
 	
 	public Snake(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -30,5 +32,10 @@ public class Snake extends Entity {
 		} else if (keyH.direction == 'R') {
 			x += speed;	
 		}
+	}
+	
+	public void draw(Graphics2D g2) {
+		g2.setColor(Color.green);
+		g2.fillRect(x, y, gp.tileSize/2, gp.tileSize/2);
 	}
 }

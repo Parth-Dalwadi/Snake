@@ -11,8 +11,6 @@ public class App{
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
 		window.pack();
-		//window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//window.setUndecorated(true);
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 		gamePanel.startGameThread();
