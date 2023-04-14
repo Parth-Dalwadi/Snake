@@ -45,7 +45,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void startGameThread(){
 		gameThread = new Thread(this);
-		apple.setApplePosition();
 		gameThread.start();
 		gameState = titleState;
 	}
@@ -86,14 +85,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;;
-		if (gameState == titleState) {
-			ui.draw(g2);
-		}
+//		if (gameState == titleState) {
+//			ui.draw(g2);
+//		}
+		ui.draw(g2);
 		
-		if (gameState == playState) {
-			snake.draw(g2);
-			apple.draw(g2);
-		}
+//		if (gameState == playState) {
+//			snake.draw(g2);
+//			apple.draw(g2);
+//		}
 		g2.dispose();
 	}
 	

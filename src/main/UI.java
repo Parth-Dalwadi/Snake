@@ -36,12 +36,17 @@ public class UI {
 			drawTitleScreen();
 		}
 		
+		if (gp.gameState == gp.playState) {
+			drawGameScreen();
+		}
+		
 		if (gp.gameState == gp.gameOverState) {
 			drawGameOverScreen();
 		}
 	}
 	
 	public void drawTitleScreen() {
+		//SCREEN FLASH HAPPENS BECAUSE OF THIS FUNCTION!!!!
 		//Title
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 104F));
 		String text = "Snake Game!";
@@ -73,6 +78,17 @@ public class UI {
 			g2.drawString(">", x-gp.tileSize, y);
 		}
 		
+	}
+	
+	public void drawGameScreen() {
+		gp.snake.draw(g2);
+		gp.apple.draw(g2);
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
+		String text = "Score: " + gp.score;
+		int x = getXForCenteredText(text);
+		int y = gp.tileSize/2;
+		g2.setColor(Color.green);
+		g2.drawString(text, x+2, y+2);
 	}
 	
 	public void drawGameOverScreen() {

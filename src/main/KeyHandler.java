@@ -37,6 +37,7 @@ public class KeyHandler implements KeyListener{
 			if (code == KeyEvent.VK_ENTER) {
 				if (gp.ui.commandNum == 0) {
 					gp.gameState = 1;
+					gp.apple.setApplePosition();
 				}
 				if (gp.ui.commandNum == 1) {
 					System.exit(0);
