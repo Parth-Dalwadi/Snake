@@ -21,14 +21,14 @@ public class Snake extends Entity {
 	}
 	
 	public void setDefaultValues() {
-		x = 24;
-		y = 0;
+		x = 48;
+		y = 168;
 		for (int i = 0; i < body; i++) {
 			Entity e = new Entity();
 			snakeBody.add(e);
 			snakeBody.get(i).x = x;
 			snakeBody.get(i).y = y;
-			y+=speed;
+			y-=speed;
 		}
 	}
 	
@@ -54,9 +54,9 @@ public class Snake extends Entity {
 	public void draw(Graphics2D g2) {
 		for (int i = 0; i < body; i++) {
 			if (i == 0) {
-				g2.setColor(Color.yellow);
-			} else {
 				g2.setColor(Color.green);
+			} else {
+				g2.setColor(new Color(0, 100, 20));
 			}
 			g2.fillRect(snakeBody.get(i).x, snakeBody.get(i).y, gp.tileSize/2, gp.tileSize/2);
 		}
