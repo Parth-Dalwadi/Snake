@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.util.Random;
+import entity.Entity;
 import entity.Snake;
 import entity.Apple;
 
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread = new Thread(this);
 		gameThread.start();
 		gameState = titleState;
+		apple.setApplePosition();
 	}
 
 	@Override
@@ -68,17 +70,27 @@ public class GamePanel extends JPanel implements Runnable{
 				if (gameState == playState) {
 					snake.update();
 					checkApple();
+					snake.checkCollision();
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				if (gameState == gameOverState) {
+					
 				}
 				repaint();
 				delta--;	
 				drawCount++;
 			}
 
-			if (timer >= 1000000000) {
-				System.out.println("FPS:" + drawCount);
-				drawCount = 0;
-				timer = 0;
-			}
+//			if (timer >= 1000000000) {
+//				System.out.println("FPS:" + drawCount);
+//				drawCount = 0;
+//				timer = 0;
+//			}
 		}
 	}
 
@@ -98,7 +110,11 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void checkApple() {
-		if ((snake.x == apple.x) && (snake.y == apple.y)){
+		if ((snake.snakeBody.get(0).x == apple.x) && (snake.snakeBody.get(0).y == apple.y)){
+			Entity e = new Entity();
+			e.x = snake.snakeBody.get(snake.body-1).x;
+			e.y = snake.snakeBody.get(snake.body-1).y;
+			snake.snakeBody.add(e);
 			snake.body++;
 			score++;
 			apple.setApplePosition();

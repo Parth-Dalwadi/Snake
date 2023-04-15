@@ -92,7 +92,35 @@ public class UI {
 	}
 	
 	public void drawGameOverScreen() {
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 104F));
+		String text = "Game Over!";
+		int x = getXForCenteredText(text);
+		int y = gp.tileSize * 3;
+		g2.setColor(Color.red);
+		g2.drawString(text, x+2, y+2);
 		
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 52F));
+		text = "Score: " + gp.score;
+		x = getXForCenteredText(text);
+		y += gp.tileSize * 1.5;
+		g2.drawString(text, x, y);
+		
+		g2.setColor(Color.green);
+		text = "RETRY";
+		x = getXForCenteredText(text);
+		y += gp.tileSize * 3;
+		g2.drawString(text, x, y);
+		if (commandNum == 0) {
+			g2.drawString(">", x-gp.tileSize, y);
+		}
+		
+		text = "QUIT";
+		x = getXForCenteredText(text);
+		y += gp.tileSize * 1.5;
+		g2.drawString(text, x, y);
+		if (commandNum == 1) {
+			g2.drawString(">", x-gp.tileSize, y);
+		}
 	}
 	
 	public int getXForCenteredText(String text) {
@@ -100,5 +128,4 @@ public class UI {
 		int x = gp.screenWidth/2 - length/2;
 		return x;
 	}
-
 }
