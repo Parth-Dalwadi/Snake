@@ -80,9 +80,11 @@ public class GamePanel extends JPanel implements Runnable{
 					}
 				}
 				
-//				if (gameState == gameOverState) {
-//					playSE(2);
-//				}
+				if (gameState == gameOverState) {
+					snake.resetSnake();
+					apple.setApplePosition();
+					keyH.direction = 'N';
+				}
 				repaint();
 				delta--;	
 				drawCount++;

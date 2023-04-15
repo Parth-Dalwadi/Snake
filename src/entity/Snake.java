@@ -21,7 +21,7 @@ public class Snake extends Entity {
 	}
 	
 	public void setDefaultValues() {
-		x = 0;
+		x = 24;
 		y = 0;
 		for (int i = 0; i < body; i++) {
 			Entity e = new Entity();
@@ -97,5 +97,11 @@ public class Snake extends Entity {
 	
 	public void playCollision() {
 		gp.playSE(2);
+	}
+	
+	public void resetSnake() {
+		snakeBody.clear();
+		body = 6;
+		setDefaultValues();
 	}
 }
