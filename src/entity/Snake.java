@@ -65,24 +65,37 @@ public class Snake extends Entity {
 	public void checkCollision() {
 		for (int i = body-1; i > 0; i--) {
 			if ((snakeBody.get(i).x == snakeBody.get(0).x) && (snakeBody.get(i).y == snakeBody.get(0).y)) {
+				playCollision();
 				gp.gameState = gp.gameOverState;
 			}
 		}
 		
 		if (snakeBody.get(0).x < 0) {
+			playCollision();
 			gp.gameState = gp.gameOverState;
 		}
 		
 		if (snakeBody.get(0).x >= gp.screenWidth) {
+			playCollision();
 			gp.gameState = gp.gameOverState;
 		}
 		
 		if (snakeBody.get(0).y < 0) {
+			playCollision();
 			gp.gameState = gp.gameOverState;
 		}
 		
 		if (snakeBody.get(0).y >= gp.screenHeight) {
+			playCollision();
 			gp.gameState = gp.gameOverState;
 		}
+		
+//		if (gp.gameState == gp.gameOverState) {
+//			playCollision(2);
+//		}
+	}
+	
+	public void playCollision() {
+		gp.playSE(2);
 	}
 }

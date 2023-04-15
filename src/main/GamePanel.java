@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Snake snake = new Snake(this, keyH);
 	Apple apple = new Apple(this);
 	UI ui = new UI(this);
+	Sound sound = new Sound();
 
 	public GamePanel(){
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 		gameState = titleState;
 		apple.setApplePosition();
+		playMusic(1);
 	}
 
 	@Override
@@ -78,9 +80,9 @@ public class GamePanel extends JPanel implements Runnable{
 					}
 				}
 				
-				if (gameState == gameOverState) {
-					
-				}
+//				if (gameState == gameOverState) {
+//					playSE(2);
+//				}
 				repaint();
 				delta--;	
 				drawCount++;
@@ -111,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void checkApple() {
 		if ((snake.snakeBody.get(0).x == apple.x) && (snake.snakeBody.get(0).y == apple.y)){
+			playSE(0);
 			Entity e = new Entity();
 			e.x = snake.snakeBody.get(snake.body-1).x;
 			e.y = snake.snakeBody.get(snake.body-1).y;
@@ -119,5 +122,20 @@ public class GamePanel extends JPanel implements Runnable{
 			score++;
 			apple.setApplePosition();
 		}
+	}
+	
+	public void playMusic(int i) {
+		sound.setFile(i);
+		sound.play();
+		sound.loop();
+	}
+	
+	public void stopMusic() {
+		sound.stop();
+	}
+	
+	public void playSE(int i) {
+		sound.setFile(i);
+		sound.play();
 	}
 }
