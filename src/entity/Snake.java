@@ -68,5 +68,21 @@ public class Snake extends Entity {
 				gp.gameState = gp.gameOverState;
 			}
 		}
+		
+		if (snakeBody.get(0).x < 0) {
+			gp.gameState = gp.gameOverState;
+		}
+		
+		if (snakeBody.get(0).x >= gp.screenWidth) {
+			gp.gameState = gp.gameOverState;
+		}
+		
+		if (snakeBody.get(0).y < 0) {
+			gp.gameState = gp.gameOverState;
+		}
+		
+		if (snakeBody.get(0).y >= gp.screenHeight) {
+			gp.gameState = gp.gameOverState;
+		}
 	}
 }
