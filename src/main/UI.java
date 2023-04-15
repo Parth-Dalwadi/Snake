@@ -46,9 +46,8 @@ public class UI {
 	}
 	
 	public void drawTitleScreen() {
-		//SCREEN FLASH HAPPENS BECAUSE OF THIS FUNCTION!!!!
 		//Title
-		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 104F));
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
 		String text = "Snake Game!";
 		int x = getXForCenteredText(text);
 		int y = gp.tileSize * 3;
@@ -59,7 +58,7 @@ public class UI {
 		g2.drawString(text, x, y);
 		
 		//Menu
-		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 52F));
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
 		g2.setColor(Color.green);
 		
 		text = "PLAY";
