@@ -47,9 +47,7 @@ public class KeyHandler implements KeyListener{
 		if (gp.gameState == gp.playState) {
 			if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
 				if (direction != 'D') {
-					if (direction != 'N') {
-						direction = 'U';
-					}
+					direction = 'U';
 				}	
 			}
 			

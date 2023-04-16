@@ -12,6 +12,7 @@ public class Snake extends Entity {
 	public int speed = 24;
 	public int body = 6;
 	public ArrayList<Entity> snakeBody;
+	boolean isMoving = false;
 	
 	public Snake(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -21,19 +22,19 @@ public class Snake extends Entity {
 	}
 	
 	public void setDefaultValues() {
-		x = 48;
-		y = 168;
+		x = gp.screenWidth/2;
+		y = gp.screenHeight/2;
 		for (int i = 0; i < body; i++) {
 			Entity e = new Entity();
 			snakeBody.add(e);
 			snakeBody.get(i).x = x;
 			snakeBody.get(i).y = y;
-			y-=speed;
 		}
 	}
 	
 	public void update(){
 		if (keyH.direction != 'N') {
+			isMoving = true;
 			for(int i = body-1; i>0; i--) {
 				snakeBody.get(i).x = snakeBody.get(i-1).x;
 				snakeBody.get(i).y = snakeBody.get(i-1).y;
@@ -52,51 +53,51 @@ public class Snake extends Entity {
 	}
 	
 	public void draw(Graphics2D g2) {
-		for (int i = 0; i < body; i++) {
-			if (i == 0) {
-				g2.setColor(Color.green);
-			} else {
-				g2.setColor(new Color(0, 100, 20));
+		if (isMoving == true) {
+			for (int i = 0; i < body; i++) {
+				if (i == 0) {
+					g2.setColor(Color.green);
+				} else {
+					g2.setColor(new Color(0, 100, 20));
+				}
+				g2.fillRect(snakeBody.get(i).x, snakeBody.get(i).y, gp.tileSize/2, gp.tileSize/2);
 			}
-			g2.fillRect(snakeBody.get(i).x, snakeBody.get(i).y, gp.tileSize/2, gp.tileSize/2);
+		} else {
+			g2.setColor(Color.green);
+			g2.fillRect(snakeBody.get(0).x, snakeBody.get(0).y, gp.tileSize/2, gp.tileSize/2);
 		}
 	}
 	
 	public void checkCollision() {
-		for (int i = body-1; i > 0; i--) {
-			if ((snakeBody.get(i).x == snakeBody.get(0).x) && (snakeBody.get(i).y == snakeBody.get(0).y)) {
-				playCollision();
-				gp.gameState = gp.gameOverState;
+		if (isMoving == true) {
+			for (int i = body-1; i > 0; i--) {
+				if ((snakeBody.get(i).x == snakeBody.get(0).x) && (snakeBody.get(i).y == snakeBody.get(0).y)) {
+					collision();
+				}
+			}
+			
+			if (snakeBody.get(0).x < 0) {
+				collision();
+			}
+			
+			if (snakeBody.get(0).x >= gp.screenWidth) {
+				collision();
+			}
+			
+			if (snakeBody.get(0).y < 0) {
+				collision();
+			}
+			
+			if (snakeBody.get(0).y >= gp.screenHeight) {
+				collision();
 			}
 		}
-		
-		if (snakeBody.get(0).x < 0) {
-			playCollision();
-			gp.gameState = gp.gameOverState;
-		}
-		
-		if (snakeBody.get(0).x >= gp.screenWidth) {
-			playCollision();
-			gp.gameState = gp.gameOverState;
-		}
-		
-		if (snakeBody.get(0).y < 0) {
-			playCollision();
-			gp.gameState = gp.gameOverState;
-		}
-		
-		if (snakeBody.get(0).y >= gp.screenHeight) {
-			playCollision();
-			gp.gameState = gp.gameOverState;
-		}
-		
-//		if (gp.gameState == gp.gameOverState) {
-//			playCollision(2);
-//		}
 	}
 	
-	public void playCollision() {
+	public void collision() {
 		gp.playSE(2);
+		gp.gameState = gp.gameOverState;
+		isMoving = false;
 	}
 	
 	public void resetSnake() {
