@@ -42,7 +42,7 @@ public class Snake extends Entity {
 		
 		if (keyH.direction == 'U') {
 			snakeBody.get(0).y -= speed;	
-		} else if (keyH.direction == 'S') {
+		} else if (keyH.direction == 'D') {
 			snakeBody.get(0).y += speed;	
 		} else if (keyH.direction == 'L') {
 			snakeBody.get(0).x -= speed;	
