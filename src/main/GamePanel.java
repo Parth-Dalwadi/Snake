@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
-	Snake snake = new Snake(this, keyH);
+	public Snake snake = new Snake(this, keyH);
 	Apple apple = new Apple(this);
 	UI ui = new UI(this);
 	Sound sound = new Sound();
