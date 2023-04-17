@@ -94,7 +94,7 @@ public class UI {
 		int count2 = 0;
 		for(int i = 0; i < gp.screenWidth; i+=24) {
 			for(int j = 0; j < gp.screenHeight; j+=24) {
-				if (j == 0) {
+				if (i == 0 || i == gp.screenWidth-24 || j == 0 || j == gp.screenHeight-24) {
 					g2.setColor(new Color(60, 150, 60));
 				} else {
 					if (count2 % 2 == 0) {

@@ -76,11 +76,11 @@ public class Snake extends Entity {
 				}
 			}
 			
-			if (snakeBody.get(0).x < 0) {
+			if (snakeBody.get(0).x < 24) {
 				collision();
 			}
 			
-			if (snakeBody.get(0).x >= gp.screenWidth) {
+			if (snakeBody.get(0).x >= gp.screenWidth-24) {
 				collision();
 			}
 			
@@ -88,7 +88,7 @@ public class Snake extends Entity {
 				collision();
 			}
 			
-			if (snakeBody.get(0).y >= gp.screenHeight) {
+			if (snakeBody.get(0).y >= gp.screenHeight-24) {
 				collision();
 			}
 		}
