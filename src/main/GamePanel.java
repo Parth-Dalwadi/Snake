@@ -61,23 +61,23 @@ public class GamePanel extends JPanel implements Runnable{
 		long currentTime;
 		long timer = 0;
 		int drawCount = 0;
+		double update_timer = 0;
 
 		while(gameThread != null){
 			currentTime = System.nanoTime();
 			delta += (currentTime - lastTime)/drawInterval;
 			timer += (currentTime - lastTime);
 			lastTime = currentTime;
+			update_timer += delta;
 
 			if (delta >= 1) {
 				if (gameState == playState) {
-					snake.update();
-					checkApple();
-					snake.checkCollision();
-					try {
-						Thread.sleep(60);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					if (update_timer >= 800000) {
+						snake.update();
+						snake.checkCollision();
+						update_timer = 0;
 					}
+					checkApple();
 				}
 				
 				if (gameState == gameOverState) {
