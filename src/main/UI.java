@@ -80,14 +80,42 @@ public class UI {
 	}
 	
 	public void drawGameScreen() {
+//		int count = 0;
+//		for(int i = 0; i < gp.screenWidth; i+=24) {
+//			if (count%2==0) {
+//				g2.setColor(Color.gray);
+//			} else {
+//				g2.setColor(Color.darkGray);
+//			}
+//			g2.fillRect(i, 0, gp.tileSize/2, gp.tileSize/2);
+//			count++;
+//		}
+		int count1 = 0;
+		int count2 = 0;
+		for(int i = 0; i < gp.screenWidth; i+=24) {
+			for(int j = 0; j < gp.screenHeight; j+=24) {
+				if (j == 0) {
+					g2.setColor(new Color(60, 150, 60));
+				} else {
+					if (count2 % 2 == 0) {
+						changeColor(count1, "No");
+					} else {
+						changeColor(count1, "Yes");
+					}
+				}
+				g2.fillRect(i, j, gp.tileSize/2, gp.tileSize/2);
+				count1++;
+			}
+			count2++;
+		}
 		gp.snake.draw(g2);
 		gp.apple.draw(g2);
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
 		String text = "Score: " + gp.score;
 		int x = getXForCenteredText(text);
 		int y = gp.tileSize/2;
-		g2.setColor(Color.green);
-		g2.drawString(text, x+2, y+2);
+		g2.setColor(Color.black);
+		g2.drawString(text, x+2, y-4);
 	}
 	
 	public void drawGameOverScreen() {
@@ -126,5 +154,21 @@ public class UI {
 		int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 		int x = gp.screenWidth/2 - length/2;
 		return x;
+	}
+	
+	public void changeColor(int count, String swap) {
+		if (swap.equals("No")) {
+			if ((count % 2 == 0)) {
+				g2.setColor(Color.black);
+			} else {
+				g2.setColor(new Color(30, 30, 30));
+			}
+		} else {
+			if ((count % 2 == 0)) {
+				g2.setColor(new Color(30, 30, 30));
+			} else {
+				g2.setColor(Color.black);
+			}
+		}
 	}
 }

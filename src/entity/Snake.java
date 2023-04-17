@@ -84,7 +84,7 @@ public class Snake extends Entity {
 				collision();
 			}
 			
-			if (snakeBody.get(0).y < 0) {
+			if (snakeBody.get(0).y < 24) {
 				collision();
 			}
 			
@@ -95,8 +95,9 @@ public class Snake extends Entity {
 	}
 	
 	public void collision() {
-		gp.playSE(2);
 		gp.gameState = gp.gameOverState;
+		keyH.direction = 'N';
+		gp.playSE(2);
 		isMoving = false;
 	}
 	

@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
 					checkApple();
 					snake.checkCollision();
 					try {
-						Thread.sleep(40);
+						Thread.sleep(60);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -83,7 +83,6 @@ public class GamePanel extends JPanel implements Runnable{
 				if (gameState == gameOverState) {
 					snake.resetSnake();
 					apple.setApplePosition();
-					keyH.direction = 'N';
 				}
 				repaint();
 				delta--;	

@@ -17,7 +17,7 @@ public class Apple extends Entity{
 	
 	public void setApplePosition() {
 		int tempx = random.nextInt((int)(gp.screenWidth/gp.tileSize)) * gp.tileSize;
-		int tempy = random.nextInt((int)(gp.screenHeight/gp.tileSize)) * gp.tileSize;
+		int tempy = random.nextInt((int)((gp.screenHeight-gp.tileSize)/gp.tileSize)) * gp.tileSize + (gp.tileSize/2);
 		boolean onSnake = true;
 		
 		while(onSnake == true) {
@@ -25,9 +25,14 @@ public class Apple extends Entity{
 				Entity curr = gp.snake.snakeBody.get(i);
 				if (tempx == curr.x && tempy == curr.y) {
 					tempx = random.nextInt((int)(gp.screenWidth/gp.tileSize)) * gp.tileSize;
-					tempy = random.nextInt((int)(gp.screenHeight/gp.tileSize)) * gp.tileSize;
+					tempy = random.nextInt((int)((gp.screenHeight-gp.tileSize)/gp.tileSize)) * gp.tileSize + (gp.tileSize/2);
 					break;
 				}
+//				
+//				if (tempy < 24) {
+//					tempy = random.nextInt((int)(gp.screenHeight/gp.tileSize)) * gp.tileSize;
+//					break;
+//				}
 
 				if (i == gp.snake.body - 1) {
 					onSnake = false;
