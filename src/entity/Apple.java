@@ -17,16 +17,17 @@ public class Apple extends Entity{
 	
 	public void setApplePosition() {
 		//(random.nextInt((int) 12-1) + 1) * 24;
-		int tempx = random.nextInt((int)(gp.screenWidth/gp.tileSize)*2) * gp.tileSize/2;
-		int tempy = (random.nextInt((int) gp.tileSize/2-1) + 1) * gp.tileSize/2;
+		int tempx = random.nextInt((int)gp.maxScreenCol*2) * gp.tileSize/2;
+		int tempy = (random.nextInt((int)(gp.maxScreenRow*2 - 1)) + 1) * gp.tileSize/2;
 		boolean onSnake = true;
 		
 		while(onSnake == true) {
 			for(int i = 0 ; i < gp.snake.body; i++) {
+//				System.out.println((random.nextInt((int)(gp.screenWidth/gp.tileSize)) * gp.tileSize/2));
 				Entity curr = gp.snake.snakeBody.get(i);
 				if (tempx == curr.x && tempy == curr.y) {
-					tempx = random.nextInt((int)(gp.screenWidth/gp.tileSize)*2) * gp.tileSize/2;
-					tempy = (random.nextInt((int) gp.tileSize/2-1) + 1) * gp.tileSize/2;
+					tempx = random.nextInt((int)gp.maxScreenCol*2) * gp.tileSize/2;
+					tempy = (random.nextInt((int)(gp.maxScreenRow*2 - 1)) + 1) * gp.tileSize/2;
 					break;
 				}
 //				
